@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plant Disease Diagnosis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4faef;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 45%;
+        }
+        h2 {
+            color: #2d6a4f;
+            font-weight: bold;
+        }
+        .upload-box {
+            border: 2px dashed #2d6a4f;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        input[type=file] {
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #2d6a4f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #333;
+        }
+        .result span {
+            font-weight: bold;
+            color: #1b4332;
+        }
+        img {
+            margin-top: 15px;
+            max-width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Upload Section -->
+    <div class="card">
+        <h2><i class="fas fa-seedling"></i> Upload Leaf Image</h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="upload-box">
+                <input type="file" name="image" required>
+                <br>
+                <button type="submit">Analyze</button>
+            </div>
+        </form>
+        <img id="preview" src="#" alt="Uploaded Image" style="display:none;">
+    </div>
+
+    <!-- Results Section -->
+    <div class="card">
+        <h2><i class="fas fa-search"></i> Diagnosis Result</h2>
+        <div class="result">
+            <p><strong>Disease Detected:</strong> <span id="disease">-</span></p>
+            <p><strong>Fertilizer Suggestion:</strong> <span id="suggestion">-</span></p>
+            <p><strong>Recommended Quantity:</strong> <span id="quantity">-</span></p>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript to handle form -->
+<script>
+    const form = document.getElementById('uploadForm');
+    const preview = document.getElementById('preview');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        const response = await fetch('/predict', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.error) {
+            alert(result.error);
+        } else {
+            document.getElementById('disease').innerText = result.disease;
+            document.getElementById('suggestion').innerText = result.suggestion;
+            document.getElementById('quantity').innerText = result.quantity;
+            preview.src = result.image_path;
+            preview.style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>
