@@ -1,0 +1,11 @@
+Disease	Fertilizer Suggestion	Quantity
+Bacterial Spot	Copper-based foliar spray	2 L/ha
+Early Blight	Nitrogen-based fertilizer	50 kg/ha
+Late Blight	Phosphorus-rich fertilizer	40 kg/ha
+Leaf Mold	Balanced NPK fertilizer	30 kg/ha
+Septoria Leaf Spot	Potassium-based fertilizer	30 kg/ha
+Spider Mites	Neem oil + compost tea	Spray weekly
+Target Spot	Calcium nitrate spray	2.5 L/ha
+Tomato Yellow Leaf Curl Virus	Seaweed extract + micro-nutrients	Spray bi-weekly
+Tomato Mosaic Virus	Phosphorus + Potassium mix	40 kg/ha
+Healthy	Organic compost	20 kg/ha
